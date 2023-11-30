@@ -2,10 +2,12 @@ spring:
   profiles:
     include: key
 
+
 server:
   servlet:
     encoding:
       force-response: true
+  port: 9999
 
 springdoc:
   swagger-ui:

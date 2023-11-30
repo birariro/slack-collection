@@ -34,7 +34,9 @@ public class ChannelRouter {
   public ResponseEntity channel(){
 
     List<Channel> channels = channelService.find();
-    return ResponseEntity.ok().body(channels);
+    ChannelResponse channelResponse = new ChannelResponse(channels);
+
+    return ResponseEntity.ok().body(channelResponse);
   }
 
   @Operation(summary = "특정 channel 의 메시지 전체 조회")
@@ -42,7 +44,7 @@ public class ChannelRouter {
       @ApiResponse(responseCode = "200")
   })
   @GetMapping("/channel/{id}/message")
-  public ResponseEntity message(@PathVariable String id){
+  public ResponseEntity message(@PathVariable("id") String id){
 
     List<ChannelMessage> channelMessage = channelService.findMessage(id);
     return ResponseEntity.ok().body(channelMessage);

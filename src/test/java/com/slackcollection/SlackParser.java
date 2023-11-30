@@ -11,17 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class SlackParser {
+    @Value("${slack.token}")
+    private String token ;
 
-    private final static String token = "";
     /**
      * Find conversation ID using the conversations.list method
      */
     @Test
-    public List<String> findChatRomNames() {
+    public void findChatRomNames() {
         // you can get this instance via ctx.client() in a Bolt app
         var client = Slack.getInstance().methods();
         try {
@@ -34,19 +36,22 @@ public class SlackParser {
             for (Conversation channel : channels) {
 
                 System.out.println("channel = " + channel);
+//
+//
+//                System.out.println(" >>> getName = " + channel.getName());
+//                System.out.println(" >>> isMember = " + channel.isMember());
 
             }
-            return channels.stream().map(Conversation::getName).toList();
 
         } catch (IOException | SlackApiException e) {
 
             System.out.println("e = " + e);
         }
-        return new ArrayList<>();
     }
 
     @Test
-    public void fetchHistory(String id) {
+    public void fetchHistory() {
+        String id = "";
         // you can get this instance via ctx.client() in a Bolt app
         var client = Slack.getInstance().methods();
         try {
@@ -55,6 +60,7 @@ public class SlackParser {
                 // The token you used to initialize your app
                 .token(token)
                 .channel(id)
+
             );
 
             Optional<List<Message>> messages = Optional.ofNullable(result.getMessages());

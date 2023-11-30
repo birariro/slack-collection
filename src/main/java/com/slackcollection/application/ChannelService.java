@@ -1,6 +1,9 @@
 package com.slackcollection.application;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +36,7 @@ public class ChannelService {
         var result = client.conversationsList(r -> r.token(token));
 
         List<Channel> channels = result.getChannels().stream()
-            .map(channel -> new Channel(channel.getId(), channel.getName()))
+            .map(channel -> new Channel(channel.getId(), channel.getName(), channel.isMember()))
             .toList();
 
         return channels;
@@ -53,13 +56,13 @@ public class ChannelService {
             .channel(channelId)
         );
 
-        Optional<List<Message>> _messages = Optional.ofNullable(result.getMessages());
-
-        List<Message> messages = _messages.orElseGet(() -> new ArrayList<>());
-
+        List<Message> messages = Optional.ofNullable(result.getMessages()).orElseGet(() -> new ArrayList<>());
         List<ChannelMessage> channelMessages = messages.stream()
-            .map(message -> new ChannelMessage(channelId, message.getUsername(), message.getText(), message.getTs()))
+            .map(message -> new ChannelMessage(channelId, message.getTs(), message.getUsername(), message.getText(), unixTsToLocalDateTime(
+                message.getTs())))
             .toList();
+
+        log.info("channel id '{}' in message count {}", channelId, channelMessages.size());
 
         return channelMessages;
 
@@ -67,5 +70,16 @@ public class ChannelService {
       log.warn("ChannelService Exception: {}", e.getMessage());
     }
     return new ArrayList<>();
+  }
+
+  private LocalDateTime unixTsToLocalDateTime(String ts){
+
+    double timestamp = Double.parseDouble(ts);
+    Instant instant = Instant.ofEpochSecond((long) timestamp);
+    LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.of("UTC"));
+    LocalDateTime localDateTimeInLocalZone = localDateTime.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+    return localDateTimeInLocalZone;
+
   }
 }
