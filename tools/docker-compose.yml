@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+
+  slack-collection-db:
+    container_name: slack-collection-db
+    image: mariadb:10.8.3
+    user: "mysql:${GID}"
+    ports:
+      - "9995:9995"
+    environment:
+      MYSQL_ROOT_PASSWORD: "0000"
+      MYSQL_DATABASE: "sc-db"
+      MYSQL_TCP_PORT: 6633
+    volumes:
+      - ./tools/conf/my.conf:/etc/mysql/my.cnf
+      - ./tools/logs/db:/home/mysql/log

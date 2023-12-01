@@ -41,6 +41,9 @@ dependencies {
 
     //aop
     implementation "org.springframework.boot:spring-boot-starter-aop"
+
+    // mariadb
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
 }
 
 tasks.named('test') {

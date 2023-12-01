@@ -1,13 +1,40 @@
 spring:
   profiles:
     include: key
-
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:9995/sc-db
+    username: root
+    password: '0000'
 
 server:
   servlet:
     encoding:
       force-response: true
+
   port: 9999
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      directory: tools/logs/app
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      pattern: "%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b"
+
+logging:
+  level:
+    com.slackcollection: DEBUG
+  file:
+    name: ./tools/logs/app/app.log
+
+
+
 
 springdoc:
   swagger-ui:
@@ -22,3 +49,7 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
 
+setting:
+  schedule:
+    #cron: 0 0 8 ? * MON-FRI # 평일 오전 8시 0분 0초
+    cron: '*/5 * * * * *' # 5초마다 동작
