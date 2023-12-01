@@ -26,7 +26,7 @@ public class ChannelRouter {
 
   private final ChannelService channelService;
 
-  @Operation(summary = "channel 전체 조회")
+  @Operation(summary = "channel 전체 조회", description = "모든 채널 목록을 조회하며 채팅을 읽기가 가능한 채널을 readable 로 구별한다.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200")
   })

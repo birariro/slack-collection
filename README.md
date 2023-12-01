@@ -12,3 +12,8 @@
 3. slack 방에 봇 초대
    1. ```/invite @bot name```
 
+### application-ket
+```
+slack:
+  token : xoxb-xxxxxxx
+```
