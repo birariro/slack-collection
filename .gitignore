@@ -8,6 +8,7 @@ build/
 ## key
 application-key.yml
 build.sh
+tools/logs
 
 ### STS ###
 .apt_generated

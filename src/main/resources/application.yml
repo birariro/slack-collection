@@ -7,7 +7,7 @@ spring:
       ddl-auto: update
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:9995/sc-db
+    url: jdbc:mariadb://localhost:9995/sc-db
     username: root
     password: '0000'
 
