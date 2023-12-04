@@ -17,3 +17,6 @@
 slack:
   token : xoxb-xxxxxxx
 ```
+
+### docker compose setup
+> docker compose -f tools/docker-compose.yml up

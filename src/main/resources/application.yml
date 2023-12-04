@@ -10,7 +10,9 @@ spring:
     url: jdbc:mariadb://localhost:9995/sc-db
     username: root
     password: '0000'
-
+  batch:
+    jdbc:
+      initialize-schema: always
 server:
   servlet:
     encoding:

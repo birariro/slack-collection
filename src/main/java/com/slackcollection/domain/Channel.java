@@ -1,7 +1,12 @@
 package com.slackcollection.domain;
 
 public record Channel(
-    String id,
+    ChannelId id,
     String name,
     boolean readable
-) { }
+) {
+
+  public record ChannelId(String id)
+  { }
+
+}

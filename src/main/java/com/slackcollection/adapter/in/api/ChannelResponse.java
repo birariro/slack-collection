@@ -18,7 +18,7 @@ public class ChannelResponse {
 
   public ChannelResponse(List<Channel> channels) {
     for (Channel channel : channels) {
-      simpleChannel simpleChannel = new simpleChannel(channel.id(), channel.name());
+      simpleChannel simpleChannel = new simpleChannel(channel.id().id(), channel.name());
       if(channel.readable()) readable.add(simpleChannel);
       else non_readable.add(simpleChannel);
     }
